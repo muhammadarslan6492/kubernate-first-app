@@ -1,0 +1,44 @@
+// run docker-compose 
+
+docker-compsoe up -docker
+
+// check minikube status
+
+minikube status
+
+// start minikube
+
+minikube start
+
+// get dashbord url 
+minikube dashboard --url
+
+// deploye our first kub app
+
+//steps
+// first we need to deploy our image into dockerhub
+// build image
+
+docker build -t kub-first-app .
+
+// tag images
+
+docker tag kub-first-app arslandocker123/kub-first-app
+
+// push into docker hub
+
+docker push arslandocker123/kub-first-app
+
+// create kubernets deployement object and deploy our image
+
+kubectl create deployment first-name --image=arslandocker123/kub-first-app
+
+// get kubectl deployements
+
+// kubectl get deployements
+
+kubectl get deployments
+
+// get pods
+kubectl get pods
+
