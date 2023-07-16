@@ -1,4 +1,7 @@
-// run docker-compose 
+
+************************* The Impreative Approach *************** 
+
+1:// run docker-compose 
 
 docker-compsoe up -docker
 
@@ -13,7 +16,7 @@ minikube start
 // get dashbord url 
 minikube dashboard --url
 
-// deploye our first kub app
+2: // deploye our first kub app
 
 //steps
 // first we need to deploy our image into dockerhub
@@ -31,7 +34,7 @@ docker push arslandocker123/kub-first-app
 
 // create kubernets deployement object and deploy our image
 
-kubectl create deployment first-name --image=arslandocker123/kub-first-app
+kubectl create deployment first-app --image=arslandocker123/kub-first-app
 
 // get kubectl deployements
 
@@ -42,3 +45,69 @@ kubectl get deployments
 // get pods
 kubectl get pods
 
+
+3: // Exposing  a deployement with a service
+
+>>> Service 
+Services enable network connectivity to pods and allow them to be accessed by other components within or outside the cluster.
+ Services provide a stable network endpoint (IP address and port) that can be used to communicate with the pods.
+
+kubectl expose deployement first-app --type=LoadBalancer --port=8080
+
+// for check service created
+
+   kubectl get service
+
+// get Services
+
+   kubectl get services
+
+// minikube specific command to get running cluster address
+
+   minikube service first-app(its only work in local env)
+
+4: // resart container if app crash
+
+5: // scaling in action
+
+    kubectl scale deployement/first-app --replicas=3
+
+6: // updating deployements
+
+    docker build -t kub-first-app:2 .
+ 
+    docker push arslandocker123/kub-first-app
+
+    kubectl set image deployement/first-app kub-first-app=arslandocker123/kub-first-app
+
+    kubectl rollout status deployement/first-app
+
+7:// Deployement Rollback and history
+
+    kubectl get pods
+
+    kubectl rollout undo deployement/first-app (roll back latest deployement) 
+
+    kubectl rollout status deployement/first-app
+
+*************(for older deployements)**********
+
+    kubectl rollout history deployement/first-app
+
+    kubectl rollout history deployement/first-app --revision=2 (for more details)
+
+    kubectl rollout undo deployement/first-app --to-revision=2
+
+
+************************delete service******************
+
+               kubectl delete service first-app
+
+*********************** delete deployement**************
+
+               kubectl delete deployement first-app
+
+
+********************* The Declarative ****************
+
+                kubectl apply -f ./dep.yaml
