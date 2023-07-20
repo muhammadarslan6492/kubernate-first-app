@@ -111,3 +111,15 @@ kubectl expose deployement first-app --type=LoadBalancer --port=8080
 ********************* The Declarative ****************
 
                 kubectl apply -f ./dep.yaml
+
+******************** The Declarative Service **********
+   
+              kubectl apply -f ./service.yaml
+
+              // get services
+
+              kubectl get Services
+
+              // expose service
+
+              minikube service backend
